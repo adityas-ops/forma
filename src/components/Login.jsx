@@ -42,6 +42,7 @@ function Login() {
 
       if (response.ok) {
         // Login success
+        console.log(response)
         console.log('Logged in successfully');
       //  write code for when log in successfully then it send to /forma 
         navigate('/forma');

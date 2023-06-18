@@ -30,13 +30,15 @@ const Forma= () => {
     }));
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      file,
-    }));
-  };
+  
+
+  // const handleFileChange = (e) => {
+  //   const file = e.target.files[0];
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     file,
+  //   }));
+  // };
 
   const handleMultiFileChange = (e) => {
     const files = Array.from(e.target.files);
@@ -65,15 +67,16 @@ const Forma= () => {
           name:formData.name,
           email:formData.email,
           phone:formData.phone,
-          addressLine1:formData.addressLine1,
-          addressLine2:formData.addressLine2,
+          address_1:formData.addressLine1,
+          address_2:formData.addressLine2,
           city:formData.city,
           state:formData.state,
           pincode:formData.pincode,
           country:formData.country,
+          geolocationStatus:formData.geolocationStatus,
           single_file:formData.file,
           multi_file:formData.files,
-          geolocationStatus:formData.geolocationStatus,
+          
         }),
       });
 
@@ -119,6 +122,26 @@ const Forma= () => {
     }
   }
 
+
+  const handleFileInputChange = (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        const binaryData = reader.result;
+        // const base64String = btoa(binaryData);
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          file: binaryData,
+        }));
+
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
 
   const renderFormStep = () => {
     switch (step) {
@@ -172,7 +195,7 @@ const Forma= () => {
           <div className='flex items-center  w-full h-[100%]  flex-col mt-5'>
             <h2 className=' text-center  text-lg text-white font-bold mb-5'>Step 3: File Upload</h2>
             <form className='w-[90%] h-[80%] flex items-center  justify-center flex-col' onSubmit={handleFormSubmit}>
-            <input type="file" accept=".png,.pdf"  onChange={handleFileChange} required className="file-input file-input-bordered file-input-accent w-full max-w-xs" />
+            <input type="file" accept=".png,.pdf"  onChange={handleFileInputChange} required className="file-input file-input-bordered file-input-accent w-full max-w-xs" />
             <div className=' flex w-[70%] justify-between mt-[100px]'>
              <button className=' bg-red-500 py-2 px-6 rounded hover:bg-transparent  hover:text-white  text-white' onClick={handlePrev} >Prev</button>
              <button className=' bg-red-500 py-2 px-6 rounded hover:bg-transparent  hover:text-white  text-white' type="submit">Next</button>
