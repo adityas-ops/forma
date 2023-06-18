@@ -1,6 +1,6 @@
 // import React from 'react 
 import {useState} from "react"
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 
@@ -91,7 +91,11 @@ function Login() {
             <div className="form-control w-full max-w-xs mt-5 mb-2">
                 <button className="btn btn-primary w-full bg-red-400" type="submit">Log in</button>
             </div>
+            <Link
+              to="/forget"
+              >
             <button className="text-black hover:underline">Forget Passowrd</button>
+            </Link>
           </form>
           {errorMessage && <p className="mt-10 text-red-500">{errorMessage}</p>}
         </div>
